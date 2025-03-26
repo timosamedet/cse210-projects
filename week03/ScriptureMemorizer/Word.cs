@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 public class Word{
 
@@ -12,19 +13,35 @@ public class Word{
     }
 
     public void Hide(){
-
+        _isHidden = true;
     }
 
     public void Show(){
-
+        _isHidden = false;
     }
 
     public bool IsHidden(){
-        
+
         return _isHidden;
     }
 
     public string GetDisplayText(){
-        return "";
+
+        if(IsHidden()){
+           int numberOfLetters = _text.Count(char.IsLetter);
+           string hiddenText = "";
+           for(int i = 0; i<numberOfLetters; i++){
+                hiddenText = hiddenText + "_";
+           }
+           return hiddenText;
+        }
+        else{
+            return _text;
+        }
+    }
+
+    //To be removed
+    public string getText(){
+        return _text;
     }
 }
