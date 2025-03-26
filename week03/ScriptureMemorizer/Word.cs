@@ -39,9 +39,4 @@ public class Word{
             return _text;
         }
     }
-
-    //To be removed
-    public string getText(){
-        return _text;
-    }
 }
