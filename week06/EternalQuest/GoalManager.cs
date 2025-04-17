@@ -38,15 +38,13 @@ public class GoalManager{
         }
         else if(choice == 4){
            _goals.AddRange(LoadGoals());
-           Start();
         }
         else if(choice == 5){
             RecordEvent();
         }else if(choice == 6){
             return;
-        }else{
-            Start();
         }
+        Start();
     }
 
     public string DisplayPlayerInfo(){
@@ -56,11 +54,17 @@ public class GoalManager{
     public List<string> ListGoalNames(){
         List<string> goalNames = new List<string>();
         _map.Clear();
-
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        
         Console.WriteLine("The Goals are: ");
         foreach(Goal goal in _goals){
             goalNames.Add(goal.GetName());
-            Console.WriteLine($"{_goals.IndexOf(goal) + 1}. {goal.GetName()}");
+            if(goal.IsComplete()){
+                Console.WriteLine($"{_goals.IndexOf(goal) + 1}. {goal.GetName()} ✔️");
+            }
+            else{
+                Console.WriteLine($"{_goals.IndexOf(goal) + 1}. {goal.GetName()}");
+            }
 
             _map.Add(_goals.IndexOf(goal) + 1, goal);
     
@@ -89,7 +93,6 @@ public class GoalManager{
             Console.WriteLine(detail);
         }
         Console.WriteLine(" ");
-        Start();
     }
 
     public void CreateGoal(){
@@ -132,14 +135,12 @@ public class GoalManager{
             _goals.Add(simpleGoal);
 
             Console.WriteLine("");
-            Start();
         }
         else if(goalTypeIndex == 2){
             EternalGoal eternalGoal = new EternalGoal(goalName, goalDescription, points);
             _goals.Add(eternalGoal);
 
             Console.WriteLine("");
-            Start();
         }
         else if(goalTypeIndex == 3){
             Console.Write("How many times does this goal need to be completed for a bonus? ");
@@ -152,7 +153,6 @@ public class GoalManager{
             _goals.Add(checklistGoal);
 
             Console.WriteLine("");
-            Start();
         }
         else{
             return;
@@ -167,14 +167,16 @@ public class GoalManager{
         int index = int.Parse(Console.ReadLine());
         Goal goal = _map[index];
 
+        if(goal.IsComplete()){
+            Console.WriteLine("You've already completed this goal! create another goal to record event.\n");
+            return;
+        }
+
         goal.RecordEvent();
         _score+= goal.GetPoints();
         
         Console.WriteLine($"Congratulations! you have earned {goal.GetPoints()} points!");
         Console.WriteLine($"You now have {_score} points.\n");
-
-        Start();
-
     }
 
     public void SaveGoals(List<Goal> goals){
@@ -188,7 +190,6 @@ public class GoalManager{
                 outputFile.WriteLine(goal.GetStringRepresentation());
             }
         }
-        Start();
     }
 
     public List<Goal> LoadGoals(){

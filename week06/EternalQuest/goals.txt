@@ -1,5 +1,4 @@
-2550
-EternalGoal:Succeed,I must Succeed with God on my side.,150000
-SimpleGoal:Give a talk,Speak in Sacrament meeting when asked,300,True
-EternalGoal:Study the Scriptures,Study for at least 10 minutes,200
-ChecklistGoal:Attend the temple,Attend to perform any ordinance,700,500,3,3
+3650
+SimpleGoal:Code Good,Become a great Programmer,2500,True
+EternalGoal:Study the Scriptures,Study for at least 10 minutes,500
+ChecklistGoal:Attend the temple,Attend to perform any ordinance,550,250,3,3
